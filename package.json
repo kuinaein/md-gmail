@@ -56,6 +56,7 @@
     "axios": "^0.16.1",
     "bootstrap-honoka": "^4.0.0",
     "googleapis": "^32.0.0",
+    "html-escaper": "^1.0.1",
     "marked": "^0.4.0",
     "moment": "^2.22.2",
     "urlsafe-base64": "^1.0.0",

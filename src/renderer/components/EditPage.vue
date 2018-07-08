@@ -20,6 +20,7 @@ import moment from 'moment'
 import URLSafeBase64 from 'urlsafe-base64'
 import { google } from 'googleapis'
 import marked from 'marked'
+import { escape as escapeHtml } from 'html-escaper'
 
 const BOUNDARY = 'MY_BOUNDARY_GX9900'
 
@@ -39,8 +40,12 @@ export default {
       const gmail = google.gmail({
         version: 'v1', auth: this.$mdGmail.googleAuth })
       const body = this.formatted.replace(/<table>/g,
-        '<table border="1" style="border-collapse:collapse">')
-      const subject = '【日報】' + moment().format('YYYYMM')
+        '<table border="1" style="border-collapse:collapse">') + `
+<br/><br/>
+<small>Markdownソース:
+<textarea readonly rows="1" cols="1">${escapeHtml(this.md)}</textarea></small>
+`
+      const subject = '【日報】' + moment().format('YYMMDD')
       const email = `Subject: =?UTF-8?B?${URLSafeBase64.encode(Buffer.from(subject))}?=
 Content-Type: multipart/alternative; boundary="${BOUNDARY}"
 
